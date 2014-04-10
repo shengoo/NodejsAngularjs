@@ -1,0 +1,23 @@
+{
+  "name": "nademo",
+  "version": "0.0.1",
+  "description": "nodejs and angularjs",
+  "main": "server.js",
+  "directories": {
+    "test": "test"
+  },
+    "dependencies": {
+        "express": "*",
+        "reload":"*",
+        "sqlite3": "*",
+        "fs-extra":"*",
+        "underscore":"*",
+        "firebase":"*"
+    },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "sheng00",
+  "license": "ISC"
+}

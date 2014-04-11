@@ -7,11 +7,11 @@ var CarApp = angular.module('CarApp',['ngResource','ngRoute'])
     $routeProvider
         .when('/',{
             controller:'ListCtrl',
-            templateUrl:'partials/list.html'
+            templateUrl:'/partials/list.html'
         })
-        .when('/edit/:projectId', {
+        .when('/edit/:id', {
             controller:'EditCtrl',
-            templateUrl:'partials/detail.html'
+            templateUrl:'/partials/detail.html'
         })
         .when('/create', {
             controller:'CreateCtrl',
@@ -21,9 +21,24 @@ var CarApp = angular.module('CarApp',['ngResource','ngRoute'])
         $locationProvider.html5Mode(true)
 }])
 
-.factory('Cars',function($resource){
+.factory('CarsService',function($resource){
     return $resource('/api/cars/:id',{id:'@id'},{update:{method:'PUT'}})
 })
-.controller('ListCtrl',['$scope',function($scope){
-        $scope.cars = [{title:"title"},{title:"title2"}];
+.controller('ListCtrl',['$scope','CarsService',function($scope,CarsService){
+        $scope.cars = CarsService.query();
+        $scope.selectid = -1;//current select item
+
+        $scope.select = function(id){
+            $scope.selectid = id;
+        }
+}])
+
+.controller('EditCtrl',['$scope','CarsService','$location','$routeParams',function($scope,$location,$routeParams,CarsService){
+        $scope.car = [];
+    var id = $routeParams.id;
+
+        CarsService.get({id:id},function(resp){
+            $scope.car = resp.content;
+            console.log(resp)
+        });
 }])

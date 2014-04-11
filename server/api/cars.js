@@ -12,15 +12,15 @@ module.exports.update = update
 module.exports.del = del
 
 var DATA_FILE = './resources/data.json'
-if(process.env.NODE_ENV === 'test')
-   DATA_FILE = './test/resources/data.json'
+//if(process.env.NODE_ENV === 'test')
+//   DATA_FILE = './test/resources/data.json'
 
 var DATA = fs.readJsonSync(DATA_FILE)
 
 console.log(DATA_FILE)
 
 function list(req,res){
-    res.json("a")
+    res.json(DATA);
 }
 
 function create(req,res){
@@ -65,5 +65,47 @@ function update(req,res){
 }
 
 function del(req,res){
-    res.json("H")
+    var id = ~~req.params.id;
+    var car = _(DATA).find(function(car){return car.id == id})
+
+    var idx = DATA.indexOf(car)
+    if(idx < 0)
+        return res.json(formatRespData(0,"Could not find car with id:" + id))
+
+    DATA.splice(idx,1)
+
+    saveDB(function(err){
+        if(err)
+        res.json(formatRespData(0,err))
+        else
+        res.json(formatRespData({}))
+    })
+
+}
+
+function getLastId(){
+    if(DATA.length === 0)
+        return 0;
+    return DATA[DATA.length-1].id;
+}
+
+function saveDB(cb){
+    fs.writeFile(DATA_FILE, JSON.stringify(DATA, null, 4), function(err) {
+        if(err) {
+            cb(err);
+        } else {
+            console.log("JSON saved to " + DATA_FILE);
+        }
+    });
+}
+
+function formatRespData(code,content){
+    if( typeof code === 'object'){
+        content = code,
+            code = 1
+    }
+    return {
+        code: code,
+        content:content
+    }
 }

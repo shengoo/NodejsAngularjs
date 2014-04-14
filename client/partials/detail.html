@@ -1,5 +1,5 @@
+<h2>{{action}} {{car.title}}</h2>
 <form class="form-horizontal">
-        <legend>Update {{car.title}}</legend>
         <div class="form-group">
             <label>Title</label>
             <input class="form-control" value="{{car.title}}" >
@@ -16,5 +16,5 @@
             <label>Year</label>
             <input class="form-control" value="{{car.year}}" >
         </div>
-    <button class="btn btn-primary btn-lg" ng-click="updcar()">Update</button>
+    <button class="btn btn-primary btn-lg" ng-click="updcar()">{{action}}</button>
 </form>

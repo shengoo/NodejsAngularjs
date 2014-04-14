@@ -33,12 +33,16 @@ var CarApp = angular.module('CarApp',['ngResource','ngRoute'])
         }
 }])
 
-.controller('EditCtrl',['$scope','CarsService','$location','$routeParams',function($scope,$location,$routeParams,CarsService){
+.controller('EditCtrl',['$scope','$location','$routeParams','CarsService',function($scope,$location,$routeParams,CarsService){
         $scope.car = [];
     var id = $routeParams.id;
-
         CarsService.get({id:id},function(resp){
-            $scope.car = resp.content;
+            if(resp.code === 1){
+                $scope.car = resp.content;
+            }else{
+                //err handle
+            }
+
             console.log(resp)
         });
 }])

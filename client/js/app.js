@@ -57,7 +57,7 @@ var CarApp = angular.module('CarApp',['ngResource','ngRoute'])
         console.log(resp)
     });
     $scope.updcar = function(){
-
+        $location.path("/");
     }
 }])
 

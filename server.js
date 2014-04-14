@@ -11,17 +11,19 @@ var app = express()
 
 var clientDir = path.join(__dirname,'client')
 
-app.configure(function(){
-    app.set('port',process.env.PORT || 3000)
-    app.use(express.logger('dev'))
-    app.use(express.bodyParser())
-    app.use(app.router)
-    app.use(express.static(clientDir))
-})
 
-app.configure('development',function(){
-    app.use(express.errorHandler());
-})
+    app.set('port',process.env.PORT || 3000)
+    app.use(require('morgan')())
+    app.use(require('body-parser')())
+    //app.use(app.router)
+    app.use(express.static(clientDir))
+
+
+
+var env = process.env.NODE_ENV || 'development';
+if ('development' == env) {
+    app.use(require("errorhandler")());
+}
 
 app.get('/',function(req,res){
     res.sendfile(path.join(clientDir,'index.html'))

@@ -31,6 +31,13 @@ var CarApp = angular.module('CarApp',['ngResource','ngRoute'])
         $scope.select = function(id){
             $scope.selectid = id;
         }
+
+        $scope.delcar = function(){
+            if($scope.selectid >= 0){
+                CarsService.delete({id:$scope.selectid});
+                $scope.cars = CarsService.query();
+            }
+        }
 }])
 
 .controller('EditCtrl',['$scope','$location','$routeParams','CarsService',function($scope,$location,$routeParams,CarsService){

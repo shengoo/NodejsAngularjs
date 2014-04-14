@@ -28,6 +28,9 @@ if ('development' == env) {
 app.get('/',function(req,res){
     res.sendfile(path.join(clientDir,'index.html'))
 })
+app.get('/edit/:id',function(req,res){
+    res.sendfile(path.join(clientDir,'index.html'))
+});
 
 app.get('/api/cars', cars.list)
 

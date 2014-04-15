@@ -1,4 +1,4 @@
 NodejsAngularjs
 ===============
 
-nodejs and angularjs
+simple crud using angularjs and nodejs rest api

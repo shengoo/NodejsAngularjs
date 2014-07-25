@@ -46,7 +46,7 @@ var CarApp = angular.module('CarApp',['ngResource','ngRoute'])
 
 .controller('EditCtrl',['$scope','$location','$routeParams','CarsService',function($scope,$location,$routeParams,CarsService){
     $scope.action = "Update";
-    $scope.car = [];
+    $scope.car = {};
     var id = $routeParams.id;
     CarsService.get({id:id},function(resp){
         if(resp.code === 1){
@@ -58,12 +58,13 @@ var CarApp = angular.module('CarApp',['ngResource','ngRoute'])
         console.log(resp)
     });
     $scope.updcar = function(){
+        console.log($scope.car);
         $location.path("/");
     }
 }])
 
 .controller('CreateCtrl',['$scope','$location','$routeParams','CarsService',function($scope,$location,$routeParams,CarsService){
     $scope.action = "Create";
-    $scope.car = [];
+    $scope.car = {};
 
 }])
